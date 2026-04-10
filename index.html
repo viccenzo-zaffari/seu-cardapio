@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Seu Cardápio — Entrar</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    --bg: #F7F6F3;
+    --surface: #FFFFFF;
+    --border: #E2E0D8;
+    --border-dark: #C8C6BC;
+    --text: #1A1916;
+    --text-2: #6B6960;
+    --text-3: #9C9A92;
+    --accent: #1A1916;
+    --red: #B83232;
+    --red-bg: #FBE8E8;
+    --green: #1D6F4A;
+    --green-bg: #E8F5EE;
+    --radius: 10px;
+  }
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+  }
+  .card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 40px;
+    width: 100%;
+    max-width: 400px;
+    box-shadow: 0 4px 24px rgba(0,0,0,.06);
+  }
+  .logo {
+    display: flex; align-items: center; gap: 10px;
+    margin-bottom: 28px;
+  }
+  .logo-icon {
+    width: 36px; height: 36px;
+    background: var(--accent); border-radius: 9px;
+    display: flex; align-items: center; justify-content: center;
+    color: white; font-size: 16px;
+  }
+  .logo-name { font-size: 17px; font-weight: 600; }
+
+  .tabs {
+    display: flex; gap: 0;
+    background: var(--bg); border-radius: var(--radius);
+    padding: 4px; margin-bottom: 28px;
+  }
+  .tab {
+    flex: 1; padding: 8px;
+    text-align: center; font-size: 13px; font-weight: 500;
+    border-radius: 7px; cursor: pointer;
+    color: var(--text-3); transition: all .15s;
+    border: none; background: transparent; font-family: inherit;
+  }
+  .tab.active {
+    background: var(--surface); color: var(--text);
+    box-shadow: 0 1px 4px rgba(0,0,0,.08);
+  }
+
+  .form-group { margin-bottom: 16px; }
+  .form-label {
+    display: block; font-size: 12px; font-weight: 500;
+    color: var(--text-2); margin-bottom: 6px;
+  }
+  .form-input {
+    width: 100%; padding: 9px 12px;
+    border: 1px solid var(--border-dark); border-radius: var(--radius);
+    font-family: inherit; font-size: 14px; color: var(--text);
+    background: var(--surface); outline: none; transition: border .15s;
+  }
+  .form-input:focus { border-color: var(--accent); }
+
+  .btn-submit {
+    width: 100%; padding: 10px;
+    background: var(--accent); color: white;
+    border: none; border-radius: var(--radius);
+    font-family: inherit; font-size: 14px; font-weight: 500;
+    cursor: pointer; transition: opacity .15s; margin-top: 4px;
+  }
+  .btn-submit:hover { opacity: .85; }
+  .btn-submit:disabled { opacity: .5; cursor: not-allowed; }
+
+  .alert {
+    padding: 10px 14px; border-radius: var(--radius);
+    font-size: 13px; margin-bottom: 16px; display: none;
+  }
+  .alert.error { background: var(--red-bg); color: var(--red); display: block; }
+  .alert.success { background: var(--green-bg); color: var(--green); display: block; }
+
+  .form-section { display: none; }
+  .form-section.active { display: block; }
+</style>
+</head>
+<body>
+
+<div class="card">
+  <div class="logo">
+    <div class="logo-icon">▦</div>
+    <span class="logo-name">Seu Cardápio</span>
+  </div>
+
+  <div class="tabs">
+    <button class="tab active" onclick="switchTab('login')">Entrar</button>
+    <button class="tab" onclick="switchTab('register')">Criar conta</button>
+  </div>
+
+  <div id="alert" class="alert"></div>
+
+  <!-- Login -->
+  <div class="form-section active" id="section-login">
+    <div class="form-group">
+      <label class="form-label">Email</label>
+      <input class="form-input" type="email" id="login-email" placeholder="seu@email.com">
+    </div>
+    <div class="form-group">
+      <label class="form-label">Senha</label>
+      <input class="form-input" type="password" id="login-password" placeholder="••••••••">
+    </div>
+    <button class="btn-submit" id="btn-login" onclick="doLogin()">Entrar</button>
+  </div>
+
+  <!-- Register -->
+  <div class="form-section" id="section-register">
+    <div class="form-group">
+      <label class="form-label">Seu nome</label>
+      <input class="form-input" type="text" id="reg-name" placeholder="João Silva">
+    </div>
+    <div class="form-group">
+      <label class="form-label">Email</label>
+      <input class="form-input" type="email" id="reg-email" placeholder="seu@email.com">
+    </div>
+    <div class="form-group">
+      <label class="form-label">Senha</label>
+      <input class="form-input" type="password" id="reg-password" placeholder="Mínimo 6 caracteres">
+    </div>
+    <button class="btn-submit" id="btn-register" onclick="doRegister()">Criar conta grátis</button>
+  </div>
+</div>
+
+<script>
+  const API = 'https://seu-cardapio-production.up.railway.app/api';
+
+  // Se já está logado, vai direto pro painel
+  if (localStorage.getItem('token')) {
+    window.location.href = 'painel-admin.html';
+  }
+
+  function switchTab(tab) {
+    document.querySelectorAll('.tab').forEach((t, i) => {
+      t.classList.toggle('active', (i === 0 && tab === 'login') || (i === 1 && tab === 'register'));
+    });
+    document.getElementById('section-login').classList.toggle('active', tab === 'login');
+    document.getElementById('section-register').classList.toggle('active', tab === 'register');
+    hideAlert();
+  }
+
+  function showAlert(msg, type) {
+    const el = document.getElementById('alert');
+    el.textContent = msg;
+    el.className = 'alert ' + type;
+  }
+
+  function hideAlert() {
+    document.getElementById('alert').className = 'alert';
+  }
+
+  async function doLogin() {
+    const email = document.getElementById('login-email').value.trim();
+    const password = document.getElementById('login-password').value;
+    if (!email || !password) { showAlert('Preencha email e senha', 'error'); return; }
+
+    const btn = document.getElementById('btn-login');
+    btn.disabled = true; btn.textContent = 'Entrando...';
+
+    try {
+      const res = await fetch(`${API}/auth/login`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email, password }),
+      });
+      const data = await res.json();
+      if (!res.ok) { showAlert(data.detail || 'Erro ao entrar', 'error'); return; }
+      localStorage.setItem('token', data.access_token);
+      window.location.href = 'painel-admin.html';
+    } catch (e) {
+      showAlert('Erro de conexão com o servidor', 'error');
+    } finally {
+      btn.disabled = false; btn.textContent = 'Entrar';
+    }
+  }
+
+  async function doRegister() {
+    const name = document.getElementById('reg-name').value.trim();
+    const email = document.getElementById('reg-email').value.trim();
+    const password = document.getElementById('reg-password').value;
+    if (!name || !email || !password) { showAlert('Preencha todos os campos', 'error'); return; }
+    if (password.length < 6) { showAlert('Senha precisa ter ao menos 6 caracteres', 'error'); return; }
+
+    const btn = document.getElementById('btn-register');
+    btn.disabled = true; btn.textContent = 'Criando conta...';
+
+    try {
+      const res = await fetch(`${API}/auth/register`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ name, email, password }),
+      });
+      const data = await res.json();
+      if (!res.ok) { showAlert(data.detail || 'Erro ao criar conta', 'error'); return; }
+      localStorage.setItem('token', data.access_token);
+      window.location.href = 'painel-admin.html';
+    } catch (e) {
+      showAlert('Erro de conexão com o servidor', 'error');
+    } finally {
+      btn.disabled = false; btn.textContent = 'Criar conta grátis';
+    }
+  }
+
+  // Enter para submeter
+  document.addEventListener('keydown', e => {
+    if (e.key === 'Enter') {
+      const section = document.querySelector('.form-section.active').id;
+      if (section === 'section-login') doLogin();
+      else doRegister();
+    }
+  });
+</script>
+</body>
+</html>
