@@ -1,0 +1,6 @@
+﻿[build]
+  publish = "."
+  command = ""
+
+[build.environment]
+  NETLIFY_USE_YARN = "false"
