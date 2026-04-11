@@ -45,6 +45,7 @@ class RestaurantUpdate(BaseModel):
     address: Optional[str] = None
     whatsapp: Optional[str] = None
     primary_color: Optional[str] = None
+    logo_url: Optional[str] = None
 
 class RestaurantOut(BaseModel):
     id: uuid.UUID
