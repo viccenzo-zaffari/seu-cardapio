@@ -5,6 +5,7 @@ from fastapi.responses import FileResponse
 from database import engine, Base
 import routes_auth
 import routes_cardapio
+import routes_stripe
 import os
 
 Base.metadata.create_all(bind=engine)
@@ -21,17 +22,14 @@ app.add_middleware(
 
 app.include_router(routes_auth.router, prefix="/api")
 app.include_router(routes_cardapio.router, prefix="/api")
+app.include_router(routes_stripe.router, prefix="/api")
 
 frontend_path = os.path.join(os.path.dirname(__file__), "..")
 app.mount("/static", StaticFiles(directory=frontend_path), name="static")
 
 @app.get("/")
 def root():
-    return FileResponse(os.path.join(frontend_path, "login.html"))
-
-@app.get("/login")
-def login_page():
-    return FileResponse(os.path.join(frontend_path, "login.html"))
+    return FileResponse(os.path.join(frontend_path, "index.html"))
 
 @app.get("/painel")
 def painel_page():
