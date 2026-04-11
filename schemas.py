@@ -89,6 +89,7 @@ class MenuItemCreate(BaseModel):
     name: str
     description: Optional[str] = None
     price: Decimal
+    image_url: Optional[str] = None
     available: Optional[bool] = True
     featured: Optional[bool] = False
     sort_order: Optional[int] = 0
@@ -97,6 +98,7 @@ class MenuItemUpdate(BaseModel):
     name: Optional[str] = None
     description: Optional[str] = None
     price: Optional[Decimal] = None
+    image_url: Optional[str] = None
     available: Optional[bool] = None
     featured: Optional[bool] = None
     sort_order: Optional[int] = None
