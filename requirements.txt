@@ -13,3 +13,4 @@ pillow==9.5.0
 python-multipart==0.0.9
 pydantic[email]==2.7.1
 aiofiles==25.1.0
+stripe==9.9.0
