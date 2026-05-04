@@ -33,21 +33,36 @@ async def create_checkout(
     if plan not in PRICES or not PRICES[plan]:
         raise HTTPException(status_code=400, detail="Plano inválido")
 
+    # Busca ou cria restaurante temporário
     restaurant = db.query(models.Restaurant).filter(
         models.Restaurant.owner_id == owner.id
     ).first()
 
     if not restaurant:
-        raise HTTPException(status_code=404, detail="Restaurante não encontrado")
+        import re
+        slug_base = re.sub(r'[^a-z0-9]', '', owner.email.split('@')[0].lower())
+        slug = slug_base
+        counter = 1
+        while db.query(models.Restaurant).filter(models.Restaurant.slug == slug).first():
+            slug = f"{slug_base}{counter}"
+            counter += 1
+
+        restaurant = models.Restaurant(
+            owner_id=owner.id,
+            name="Meu Restaurante",
+            slug=slug,
+            plan="trial",
+            status="trial",
+        )
+        db.add(restaurant)
+        db.commit()
+        db.refresh(restaurant)
 
     try:
         session = stripe.checkout.Session.create(
             payment_method_types=["card"],
             mode="subscription",
-            line_items=[{
-                "price": PRICES[plan],
-                "quantity": 1,
-            }],
+            line_items=[{"price": PRICES[plan], "quantity": 1}],
             customer_email=owner.email,
             metadata={
                 "owner_id": str(owner.id),
@@ -60,20 +75,6 @@ async def create_checkout(
         return {"checkout_url": session.url}
     except stripe.error.StripeError as e:
         raise HTTPException(status_code=400, detail=str(e))
-
-
-# ── Webhook do Stripe ─────────────────────────────────
-
-@router.post("/stripe/webhook")
-async def stripe_webhook(request: Request, db: Session = Depends(get_db)):
-    payload = await request.body()
-    sig_header = request.headers.get("stripe-signature")
-    webhook_secret = os.getenv("STRIPE_WEBHOOK_SECRET")
-
-    try:
-        event = stripe.Webhook.construct_event(payload, sig_header, webhook_secret)
-    except Exception:
-        raise HTTPException(status_code=400, detail="Webhook inválido")
 
     # Pagamento confirmado — ativa o plano
     if event["type"] == "checkout.session.completed":
