@@ -78,7 +78,8 @@ async def create_checkout(
         )
         return {"checkout_url": session.url}
     except stripe.error.StripeError as e:
-        raise HTTPException(status_code=400, detail=str(e))
+        print(f"STRIPE ERROR: {e.user_message} | {e.code} | {str(e)}")
+        raise HTTPException(status_code=400, detail=str(e.user_message))
 
     # Pagamento confirmado — ativa o plano
     if event["type"] == "checkout.session.completed":
