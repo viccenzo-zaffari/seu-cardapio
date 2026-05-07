@@ -21,14 +21,18 @@ FRONTEND_URL = os.getenv("FRONTEND_URL", "https://seu-cardapio-up.netlify.app")
 
 # ── Criar sessão de checkout ──────────────────────────
 
+from pydantic import BaseModel
+
+class CheckoutRequest(BaseModel):
+    plan: str
+
 @router.post("/stripe/checkout")
 async def create_checkout(
-    request: Request,
+    data: CheckoutRequest,
     db: Session = Depends(get_db),
     owner: models.Owner = Depends(get_current_owner),
 ):
-    body = await request.json()
-    plan = body.get("plan")
+    plan = data.plan
 
     if plan not in PRICES or not PRICES[plan]:
         raise HTTPException(status_code=400, detail="Plano inválido")
