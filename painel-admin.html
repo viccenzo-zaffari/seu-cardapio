@@ -12,17 +12,14 @@
     --bg: #F7F6F3; --surface: #FFFFFF; --surface2: #F0EFE9;
     --border: #E2E0D8; --border-dark: #C8C6BC;
     --text: #1A1916; --text-2: #6B6960; --text-3: #9C9A92;
-    --accent: #1A1916; --accent-fg: #FFFFFF;
+    --accent: #1A1916;
     --green: #1D6F4A; --green-bg: #E8F5EE;
     --red: #B83232; --red-bg: #FBE8E8;
-    --amber: #9A5A0A; --amber-bg: #FEF3E2;
     --radius: 10px; --radius-sm: 6px;
     --shadow: 0 1px 3px rgba(0,0,0,.06);
     --shadow-md: 0 4px 12px rgba(0,0,0,.08);
   }
   body { font-family: 'DM Sans', sans-serif; background: var(--bg); color: var(--text); min-height: 100vh; font-size: 14px; }
-
-  /* Sidebar */
   .sidebar { position: fixed; top: 0; left: 0; bottom: 0; width: 220px; background: var(--surface); border-right: 1px solid var(--border); display: flex; flex-direction: column; z-index: 100; }
   .sidebar-logo { padding: 20px 20px 16px; border-bottom: 1px solid var(--border); }
   .logo-mark { display: flex; align-items: center; gap: 8px; font-size: 15px; font-weight: 600; color: var(--text); text-decoration: none; }
@@ -36,13 +33,10 @@
   .nav-icon { font-size: 15px; width: 18px; text-align: center; }
   .sidebar-footer { padding: 12px 20px; border-top: 1px solid var(--border); font-size: 12px; color: var(--text-3); }
   .plan-badge { display: inline-block; padding: 2px 8px; background: var(--green-bg); color: var(--green); border-radius: 20px; font-size: 11px; font-weight: 500; margin-bottom: 4px; }
-
-  /* Main */
   .main { margin-left: 220px; min-height: 100vh; }
   .topbar { background: var(--surface); border-bottom: 1px solid var(--border); padding: 0 28px; height: 56px; display: flex; align-items: center; justify-content: space-between; position: sticky; top: 0; z-index: 50; }
   .topbar-title { font-size: 15px; font-weight: 600; }
   .topbar-actions { display: flex; gap: 10px; align-items: center; }
-
   .btn { display: inline-flex; align-items: center; gap: 6px; padding: 7px 14px; border-radius: var(--radius-sm); font-size: 13px; font-weight: 500; cursor: pointer; border: 1px solid transparent; transition: all .15s; font-family: inherit; text-decoration: none; }
   .btn-primary { background: var(--accent); color: white; }
   .btn-primary:hover { opacity: .85; }
@@ -54,59 +48,44 @@
   .btn-danger:hover { opacity: .8; }
   .btn-sm { padding: 5px 10px; font-size: 12px; }
   .btn:disabled { opacity: .5; cursor: not-allowed; }
-
   .content { padding: 28px; }
-
-  /* Stats */
   .stats-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; margin-bottom: 28px; }
   .stat-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 16px 18px; box-shadow: var(--shadow); }
   .stat-label { font-size: 12px; color: var(--text-3); margin-bottom: 6px; }
   .stat-value { font-size: 22px; font-weight: 600; }
   .stat-sub { font-size: 11px; color: var(--text-3); margin-top: 4px; }
-
-  /* Setup card */
   .setup-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 28px; text-align: center; margin-bottom: 28px; box-shadow: var(--shadow); }
   .setup-card h3 { font-size: 16px; font-weight: 600; margin-bottom: 8px; }
   .setup-card p { font-size: 13px; color: var(--text-2); margin-bottom: 20px; }
-
-  /* QR Banner */
   .qr-banner { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 20px 24px; display: flex; align-items: center; gap: 20px; margin-bottom: 28px; box-shadow: var(--shadow); }
-  .qr-box { width: 80px; height: 80px; background: var(--bg); border: 1px solid var(--border); border-radius: var(--radius-sm); display: flex; align-items: center; justify-content: center; font-size: 32px; flex-shrink: 0; }
+  .qr-box { width: 64px; height: 64px; background: var(--bg); border: 1px solid var(--border); border-radius: var(--radius-sm); display: flex; align-items: center; justify-content: center; font-size: 26px; flex-shrink: 0; overflow: hidden; }
+  .qr-box img { width: 100%; height: 100%; object-fit: cover; }
   .qr-info { flex: 1; }
   .qr-info h3 { font-size: 14px; font-weight: 600; margin-bottom: 4px; }
   .qr-info p { font-size: 12px; color: var(--text-2); }
-  .qr-link { font-size: 12px; color: var(--text-3); font-family: 'DM Mono', monospace; background: var(--bg); padding: 4px 8px; border-radius: 4px; margin-top: 6px; display: inline-block; }
-
-  /* Categories */
   .section-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 16px; }
   .section-title { font-size: 15px; font-weight: 600; }
   .category-block { margin-bottom: 20px; }
   .category-header { display: flex; align-items: center; justify-content: space-between; padding: 10px 14px; background: var(--surface2); border: 1px solid var(--border); border-radius: var(--radius-sm); margin-bottom: 8px; }
   .category-name { font-size: 13px; font-weight: 600; }
-
-  /* Items */
   .item-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 14px 16px; display: flex; align-items: center; gap: 14px; margin-bottom: 8px; box-shadow: var(--shadow); transition: box-shadow .15s; }
   .item-card:hover { box-shadow: var(--shadow-md); }
-  .item-img { width: 52px; height: 52px; border-radius: var(--radius-sm); background: var(--bg); border: 1px solid var(--border); object-fit: cover; flex-shrink: 0; display: flex; align-items: center; justify-content: center; font-size: 20px; color: var(--text-3); }
+  .item-img { width: 52px; height: 52px; border-radius: var(--radius-sm); background: var(--bg); border: 1px solid var(--border); flex-shrink: 0; display: flex; align-items: center; justify-content: center; font-size: 20px; overflow: hidden; }
+  .item-img img { width: 100%; height: 100%; object-fit: cover; }
   .item-info { flex: 1; min-width: 0; }
   .item-name { font-size: 13px; font-weight: 600; margin-bottom: 2px; }
   .item-desc { font-size: 12px; color: var(--text-2); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
   .item-price { font-size: 14px; font-weight: 600; font-family: 'DM Mono', monospace; flex-shrink: 0; }
   .item-actions { display: flex; gap: 6px; align-items: center; flex-shrink: 0; }
-
-  /* Toggle */
   .toggle { position: relative; display: inline-block; width: 36px; height: 20px; }
   .toggle input { opacity: 0; width: 0; height: 0; }
   .toggle-slider { position: absolute; cursor: pointer; top: 0; left: 0; right: 0; bottom: 0; background: var(--border-dark); border-radius: 20px; transition: .2s; }
   .toggle-slider::before { content: ''; position: absolute; width: 14px; height: 14px; left: 3px; bottom: 3px; background: white; border-radius: 50%; transition: .2s; }
   .toggle input:checked + .toggle-slider { background: var(--green); }
   .toggle input:checked + .toggle-slider::before { transform: translateX(16px); }
-
   .badge { display: inline-flex; align-items: center; padding: 2px 8px; border-radius: 20px; font-size: 11px; font-weight: 500; }
   .badge-green { background: var(--green-bg); color: var(--green); }
   .badge-red { background: var(--red-bg); color: var(--red); }
-
-  /* Modal */
   .modal-overlay { display: none; position: fixed; inset: 0; background: rgba(0,0,0,.35); z-index: 200; align-items: center; justify-content: center; }
   .modal-overlay.open { display: flex; }
   .modal { background: var(--surface); border-radius: 14px; width: 480px; max-width: calc(100vw - 32px); box-shadow: 0 20px 60px rgba(0,0,0,.15); overflow: hidden; }
@@ -120,17 +99,22 @@
   .form-input:focus { border-color: var(--accent); }
   .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
   textarea.form-input { resize: vertical; min-height: 72px; }
-
-  /* Toast */
+  .upload-area { border: 2px dashed var(--border-dark); border-radius: var(--radius-sm); padding: 16px; text-align: center; cursor: pointer; transition: all .15s; position: relative; overflow: hidden; }
+  .upload-area:hover { border-color: var(--accent); background: var(--surface2); }
+  .upload-area input[type=file] { position: absolute; inset: 0; opacity: 0; cursor: pointer; width: 100%; height: 100%; }
+  .upload-preview { width: 100%; height: 120px; object-fit: cover; border-radius: var(--radius-sm); display: none; margin-bottom: 8px; }
+  .upload-preview.show { display: block; }
+  .upload-preview-logo { width: 80px; height: 80px; object-fit: cover; border-radius: 12px; display: none; margin: 0 auto 8px; border: 1px solid var(--border); }
+  .upload-preview-logo.show { display: block; }
+  .upload-text { font-size: 12px; color: var(--text-3); }
+  .upload-progress { height: 3px; background: var(--border); border-radius: 2px; margin-top: 8px; display: none; }
+  .upload-progress-bar { height: 100%; background: var(--accent); border-radius: 2px; width: 0%; transition: width .3s; }
   .toast { position: fixed; bottom: 24px; right: 24px; z-index: 300; background: var(--accent); color: white; padding: 10px 16px; border-radius: var(--radius-sm); font-size: 13px; font-weight: 500; box-shadow: var(--shadow-md); transform: translateY(80px); opacity: 0; transition: all .25s cubic-bezier(.34,1.56,.64,1); }
   .toast.show { transform: translateY(0); opacity: 1; }
   .toast.error { background: var(--red); }
-
-  /* Loading */
   .loading { text-align: center; padding: 48px; color: var(--text-3); font-size: 13px; }
   .empty { text-align: center; padding: 40px 24px; color: var(--text-3); }
   .empty-icon { font-size: 32px; margin-bottom: 10px; }
-
   @media (max-width: 900px) { .sidebar { display: none; } .main { margin-left: 0; } .stats-grid { grid-template-columns: repeat(2,1fr); } }
 </style>
 </head>
@@ -138,10 +122,7 @@
 
 <aside class="sidebar">
   <div class="sidebar-logo">
-    <a class="logo-mark" href="#">
-      <div class="logo-icon">▦</div>
-      Seu Cardápio
-    </a>
+    <a class="logo-mark" href="#"><div class="logo-icon">▦</div>Seu Cardápio</a>
   </div>
   <div class="restaurant-name">
     Restaurante ativo
@@ -151,9 +132,11 @@
     <button class="nav-item active"><span class="nav-icon">▤</span> Cardápio</button>
     <button class="nav-item" onclick="downloadQR()"><span class="nav-icon">⊞</span> QR Code</button>
     <button class="nav-item" onclick="viewPublic()"><span class="nav-icon">↗</span> Ver cardápio</button>
+    <button class="nav-item" onclick="openConfigModal()"><span class="nav-icon">◈</span> Configurações</button>
+    <button class="nav-item" onclick="window.location.href='planos.html'"><span class="nav-icon">◇</span> Plano</button>
   </nav>
   <div class="sidebar-footer">
-    <span class="plan-badge">Trial ativo</span>
+    <span class="plan-badge" id="plan-badge">Trial ativo</span>
     <div style="margin-top:8px">
       <button onclick="logout()" style="font-size:12px;color:var(--text-3);background:none;border:none;cursor:pointer;padding:0">Sair</button>
     </div>
@@ -168,9 +151,7 @@
       <button class="btn btn-primary btn-sm" onclick="openItemModal()">+ Novo prato</button>
     </div>
   </header>
-
   <div class="content">
-    <!-- Stats -->
     <div class="stats-grid">
       <div class="stat-card">
         <div class="stat-label">Pratos cadastrados</div>
@@ -184,8 +165,8 @@
       </div>
       <div class="stat-card">
         <div class="stat-label">Plano</div>
-        <div class="stat-value" style="font-size:18px">Trial</div>
-        <div class="stat-sub">14 dias grátis</div>
+        <div class="stat-value" style="font-size:18px" id="stat-plan">Trial</div>
+        <div class="stat-sub"><a href="planos.html" style="color:var(--text-3);font-size:11px">Assinar agora →</a></div>
       </div>
       <div class="stat-card">
         <div class="stat-label">Status</div>
@@ -194,45 +175,37 @@
       </div>
     </div>
 
-    <!-- Setup: sem restaurante -->
     <div id="setup-section" style="display:none">
       <div class="setup-card">
         <div style="font-size:36px;margin-bottom:12px">🍽️</div>
-        <h3>Cadastre seu restaurante</h3>
-        <p>Configure o nome e o link do seu cardápio para começar.</p>
-        <button class="btn btn-primary" onclick="openRestaurantModal()">Configurar restaurante</button>
+        <h3>Configure seu restaurante</h3>
+        <p>Defina o nome e o link do seu cardápio para começar.</p>
+        <button class="btn btn-primary" onclick="openRestaurantModal()">Configurar agora</button>
       </div>
     </div>
 
-    <!-- QR Banner -->
     <div id="qr-section" style="display:none">
       <div class="qr-banner">
-        <div class="qr-box">⊞</div>
+        <div class="qr-box" id="qr-logo-box">⊞</div>
         <div class="qr-info">
           <h3>Seu QR Code está ativo</h3>
           <p>Cole nas mesas para seus clientes escanearem.</p>
-          <span class="qr-link" id="qr-link-text">—</span>
         </div>
         <div style="display:flex;gap:8px;flex-shrink:0">
           <button class="btn btn-outline btn-sm" onclick="copyLink()">Copiar link</button>
           <button class="btn btn-primary btn-sm" onclick="downloadQR()">↓ Baixar QR</button>
         </div>
       </div>
-
-      <!-- Menu section -->
       <div class="section-header">
         <span class="section-title">Pratos e categorias</span>
         <button class="btn btn-ghost btn-sm" onclick="openCategoryModal()">+ Categoria</button>
       </div>
-      <div id="menu-container">
-        <div class="loading">Carregando cardápio...</div>
-      </div>
+      <div id="menu-container"><div class="loading">Carregando cardápio...</div></div>
     </div>
-
   </div>
 </div>
 
-<!-- Modal: Restaurante -->
+<!-- Modal: Restaurante (criar) -->
 <div class="modal-overlay" id="modal-restaurant">
   <div class="modal">
     <div class="modal-header">
@@ -271,6 +244,55 @@
   </div>
 </div>
 
+<!-- Modal: Configurações (editar + logo + slug) -->
+<div class="modal-overlay" id="modal-config">
+  <div class="modal">
+    <div class="modal-header">
+      <span class="modal-title">Configurações do restaurante</span>
+      <button class="btn btn-ghost btn-sm" onclick="closeModal('config')">✕</button>
+    </div>
+    <div class="modal-body">
+      <div class="form-group">
+        <label class="form-label">Logo do restaurante</label>
+        <div class="upload-area">
+          <input type="file" accept="image/*" id="logo-input" onchange="handleLogoSelect(this)">
+          <img class="upload-preview-logo" id="logo-preview" alt="Logo">
+          <div class="upload-text" id="logo-upload-text">📷 Clique para adicionar o logo</div>
+          <div class="upload-progress" id="logo-progress"><div class="upload-progress-bar" id="logo-progress-bar"></div></div>
+        </div>
+        <div style="font-size:11px;color:var(--text-3);margin-top:6px">Aparece no topo do cardápio. Recomendado: imagem quadrada.</div>
+      </div>
+      <div class="form-group">
+        <label class="form-label">Nome do restaurante *</label>
+        <input class="form-input" type="text" id="config-name" placeholder="Ex: Burger do Bairro">
+      </div>
+      <div class="form-group">
+        <label class="form-label">Link do cardápio (slug)</label>
+        <input class="form-input" type="text" id="config-slug" placeholder="Ex: burguerdobairro" oninput="this.value=this.value.toLowerCase().replace(/[^a-z0-9-]/g,'')">
+        <div style="font-size:11px;color:var(--text-3);margin-top:4px">Atenção: mudar o slug altera o link do QR Code.</div>
+      </div>
+      <div class="form-group">
+        <label class="form-label">Descrição</label>
+        <textarea class="form-input" id="config-desc" placeholder="Hambúrgueres artesanais desde 2019..."></textarea>
+      </div>
+      <div class="form-row">
+        <div class="form-group">
+          <label class="form-label">Endereço</label>
+          <input class="form-input" type="text" id="config-address" placeholder="Rua, número, bairro">
+        </div>
+        <div class="form-group">
+          <label class="form-label">WhatsApp</label>
+          <input class="form-input" type="text" id="config-whatsapp" placeholder="51999999999">
+        </div>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-outline" onclick="closeModal('config')">Cancelar</button>
+      <button class="btn btn-primary" id="btn-save-config" onclick="saveConfig()">Salvar alterações</button>
+    </div>
+  </div>
+</div>
+
 <!-- Modal: Categoria -->
 <div class="modal-overlay" id="modal-category">
   <div class="modal" style="width:360px">
@@ -303,6 +325,15 @@
       <button class="btn btn-ghost btn-sm" onclick="closeModal('item')">✕</button>
     </div>
     <div class="modal-body">
+      <div class="form-group">
+        <label class="form-label">Foto do prato</label>
+        <div class="upload-area">
+          <input type="file" accept="image/*" id="foto-input" onchange="handleFotoSelect(this)">
+          <img class="upload-preview" id="upload-preview" alt="Preview">
+          <div class="upload-text" id="upload-text">📷 Clique para adicionar uma foto</div>
+          <div class="upload-progress" id="upload-progress"><div class="upload-progress-bar" id="upload-progress-bar"></div></div>
+        </div>
+      </div>
       <div class="form-group">
         <label class="form-label">Categoria *</label>
         <select class="form-input" id="item-category-id"></select>
@@ -340,12 +371,17 @@
 
 <script>
   const API = 'https://seu-cardapio-production.up.railway.app/api';
+  const FRONTEND = 'https://seu-cardapio-up.netlify.app';
+  const CLOUDINARY_CLOUD = 'duknkjihr';
+  const CLOUDINARY_PRESET = 'seu-cardapio';
+
   let token = localStorage.getItem('token');
   let currentRestaurant = null;
   let editingItemId = null;
   let categories = [];
+  let uploadedImageUrl = null;
+  let uploadedLogoUrl = null;
 
-  // Redireciona se não logado
   if (!token) window.location.href = 'index.html';
 
   function authHeaders() {
@@ -354,19 +390,29 @@
 
   async function apiFetch(path, options = {}) {
     const res = await fetch(API + path, { headers: authHeaders(), ...options });
-    if (res.status === 401) { logout(); return; }
+    if (res.status === 401) { logout(); return null; }
     return res;
   }
 
-  // ── Init ──────────────────────────────────────────
   async function init() {
     try {
       const res = await apiFetch('/restaurants');
+      if (!res) return;
       const restaurants = await res.json();
 
       if (!restaurants.length) {
-        document.getElementById('setup-section').style.display = 'block';
-        document.getElementById('qr-section').style.display = 'none';
+        const params = new URLSearchParams(window.location.search);
+        if (params.get('payment') === 'success') {
+          document.getElementById('setup-section').style.display = 'block';
+          document.getElementById('qr-section').style.display = 'none';
+        } else {
+          window.location.href = 'planos.html';
+        }
+        return;
+      }
+
+      if (restaurants[0].status === 'suspended') {
+        window.location.href = 'planos.html';
         return;
       }
 
@@ -375,9 +421,7 @@
       document.getElementById('qr-section').style.display = 'block';
       updateRestaurantUI();
       await loadMenu();
-    } catch (e) {
-      showToast('Erro ao carregar dados', 'error');
-    }
+    } catch { showToast('Erro ao carregar dados', 'error'); }
   }
 
   function updateRestaurantUI() {
@@ -385,32 +429,31 @@
     document.getElementById('sidebar-restaurant-name').textContent = r.name;
     document.getElementById('stat-name').textContent = r.name;
     document.getElementById('stat-slug').textContent = `/${r.slug}`;
-    document.getElementById('qr-link-text').textContent = `seucardapio.netlify.app/${r.slug}`;
+    const plan = r.plan === 'anual' ? 'Anual' : r.plan === 'mensal' ? 'Mensal' : 'Trial';
+    document.getElementById('stat-plan').textContent = plan;
+    document.getElementById('plan-badge').textContent = plan + ' ativo';
+    const logoBox = document.getElementById('qr-logo-box');
+    if (r.logo_url) {
+      logoBox.innerHTML = `<img src="${r.logo_url}" alt="${r.name}">`;
+    } else {
+      logoBox.innerHTML = '⊞';
+    }
   }
 
-  // ── Menu ──────────────────────────────────────────
   async function loadMenu() {
     const container = document.getElementById('menu-container');
     container.innerHTML = '<div class="loading">Carregando...</div>';
-
     try {
       const catRes = await apiFetch(`/restaurants/${currentRestaurant.id}/categories`);
+      if (!catRes) return;
       categories = await catRes.json();
-
       const totalItems = categories.reduce((sum, c) => sum + (c.items ? c.items.length : 0), 0);
       document.getElementById('stat-items').textContent = totalItems;
-      document.getElementById('stat-cats').textContent = `${categories.length} categorias`;
-
-      if (categories.length === 0) {
-        container.innerHTML = `
-          <div class="empty">
-            <div class="empty-icon">🍽️</div>
-            <p style="font-weight:500;margin-bottom:6px">Nenhuma categoria ainda</p>
-            <p style="font-size:13px;color:var(--text-3)">Crie uma categoria e adicione seus pratos</p>
-          </div>`;
+      document.getElementById('stat-cats').textContent = `${categories.length} categori${categories.length === 1 ? 'a' : 'as'}`;
+      if (!categories.length) {
+        container.innerHTML = `<div class="empty"><div class="empty-icon">🍽️</div><p style="font-weight:500;margin-bottom:6px">Nenhuma categoria ainda</p><p style="font-size:13px;color:var(--text-3)">Crie uma categoria e adicione seus pratos</p></div>`;
         return;
       }
-
       try {
         const menuRes = await fetch(`${API}/menu/${currentRestaurant.slug}`);
         if (menuRes.ok) {
@@ -421,39 +464,23 @@
         } else {
           categories = categories.map(c => ({ ...c, items: [] }));
         }
-      } catch {
-        categories = categories.map(c => ({ ...c, items: [] }));
-      }
-
+      } catch { categories = categories.map(c => ({ ...c, items: [] })); }
       renderMenu();
-    } catch (e) {
-      container.innerHTML = '<div class="empty"><div class="empty-icon">⚠️</div><p>Erro ao carregar cardápio</p></div>';
-    }
+    } catch { container.innerHTML = '<div class="empty"><div class="empty-icon">⚠️</div><p>Erro ao carregar cardápio</p></div>'; }
   }
 
   function renderMenu() {
     const container = document.getElementById('menu-container');
-
-    if (!categories.length) {
-      container.innerHTML = `
-        <div class="empty">
-          <div class="empty-icon">🍽️</div>
-          <p style="font-weight:500;margin-bottom:6px">Nenhuma categoria ainda</p>
-          <p style="font-size:13px;color:var(--text-3)">Crie uma categoria e adicione seus pratos</p>
-        </div>`;
-      return;
-    }
-
     container.innerHTML = categories.map(cat => `
       <div class="category-block">
         <div class="category-header">
           <div>
             <span class="category-name">${cat.emoji || ''} ${cat.name}</span>
-            <span style="font-size:11px;color:var(--text-3);margin-left:8px">${cat.items.length} pratos</span>
+            <span style="font-size:11px;color:var(--text-3);margin-left:8px">${cat.items.length} prato${cat.items.length !== 1 ? 's' : ''}</span>
           </div>
           <div style="display:flex;gap:6px;align-items:center">
             <button class="btn btn-ghost btn-sm" onclick="openItemModal('${cat.id}')">+ Prato</button>
-            <button class="btn btn-danger btn-sm" onclick="deleteCategory('${cat.id}','${cat.name}')">✕</button>
+            <button class="btn btn-danger btn-sm" onclick="deleteCategory('${cat.id}','${cat.name.replace(/'/g,"\\'")}')">✕</button>
           </div>
         </div>
         <div>
@@ -466,11 +493,12 @@
     `).join('');
   }
 
-  function renderItemCard(item, categoryId) {
+  function renderItemCard(item) {
     const available = item.available;
+    const thumb = item.image_url ? `<img src="${item.image_url}" alt="${item.name}">` : '🍽️';
     return `
       <div class="item-card" id="item-${item.id}">
-        <div class="item-img">${item.image_url ? `<img src="${item.image_url}" style="width:100%;height:100%;object-fit:cover;border-radius:6px">` : '🍽️'}</div>
+        <div class="item-img">${thumb}</div>
         <div class="item-info">
           <div class="item-name">${item.name}${item.featured ? ' ⭐' : ''}</div>
           <div class="item-desc">${item.description || 'Sem descrição'}</div>
@@ -482,55 +510,74 @@
             <input type="checkbox" ${available ? 'checked' : ''} onchange="toggleItem('${item.id}', this)">
             <span class="toggle-slider"></span>
           </label>
-          <button class="btn btn-ghost btn-sm" onclick="openEditItemModal('${item.id}','${categoryId}','${item.name}',${JSON.stringify(item.description || '').replace(/'/g,"\\'")},'${item.price}','${item.featured}')">✎</button>
+          <button class="btn btn-ghost btn-sm" onclick="openEditItemModal(${JSON.stringify(item).replace(/"/g,'&quot;')})">✎</button>
           <button class="btn btn-danger btn-sm" onclick="deleteItem('${item.id}')">✕</button>
         </div>
       </div>`;
   }
 
-  // ── Toggle disponível ─────────────────────────────
+  async function uploadToCloudinary(file, progressId, barId) {
+    const progress = document.getElementById(progressId);
+    const bar = document.getElementById(barId);
+    progress.style.display = 'block'; bar.style.width = '30%';
+    const formData = new FormData();
+    formData.append('file', file);
+    formData.append('upload_preset', CLOUDINARY_PRESET);
+    formData.append('folder', 'seu-cardapio');
+    try {
+      bar.style.width = '70%';
+      const res = await fetch(`https://api.cloudinary.com/v1_1/${CLOUDINARY_CLOUD}/image/upload`, { method: 'POST', body: formData });
+      bar.style.width = '100%';
+      const data = await res.json();
+      if (data.secure_url) return data.secure_url;
+      throw new Error('Upload falhou');
+    } catch { showToast('Erro no upload da foto', 'error'); return null; }
+    finally { setTimeout(() => { progress.style.display = 'none'; bar.style.width = '0%'; }, 800); }
+  }
+
+  function handleLogoSelect(input) {
+    const file = input.files[0]; if (!file) return;
+    const preview = document.getElementById('logo-preview');
+    const reader = new FileReader();
+    reader.onload = e => { preview.src = e.target.result; preview.classList.add('show'); document.getElementById('logo-upload-text').textContent = 'Clique para trocar o logo'; };
+    reader.readAsDataURL(file);
+    uploadedLogoUrl = null;
+  }
+
+  function handleFotoSelect(input) {
+    const file = input.files[0]; if (!file) return;
+    const preview = document.getElementById('upload-preview');
+    const reader = new FileReader();
+    reader.onload = e => { preview.src = e.target.result; preview.classList.add('show'); document.getElementById('upload-text').textContent = file.name; };
+    reader.readAsDataURL(file);
+    uploadedImageUrl = null;
+  }
+
   async function toggleItem(itemId, checkbox) {
     try {
       const res = await apiFetch(`/items/${itemId}/toggle`, { method: 'PATCH' });
+      if (!res) return;
       const item = await res.json();
       const badge = document.getElementById(`badge-${itemId}`);
       badge.className = `badge ${item.available ? 'badge-green' : 'badge-red'}`;
       badge.textContent = item.available ? 'Disponível' : 'Indisponível';
       showToast(item.available ? 'Marcado como disponível' : 'Marcado como indisponível');
-    } catch (e) {
-      showToast('Erro ao atualizar', 'error');
-      checkbox.checked = !checkbox.checked;
-    }
+    } catch { showToast('Erro ao atualizar', 'error'); checkbox.checked = !checkbox.checked; }
   }
 
-  // ── Delete item ───────────────────────────────────
   async function deleteItem(itemId) {
     if (!confirm('Remover este prato?')) return;
-    try {
-      await apiFetch(`/items/${itemId}`, { method: 'DELETE' });
-      showToast('Prato removido');
-      await loadMenu();
-    } catch (e) {
-      showToast('Erro ao remover', 'error');
-    }
+    try { await apiFetch(`/items/${itemId}`, { method: 'DELETE' }); showToast('Prato removido'); await loadMenu(); }
+    catch { showToast('Erro ao remover', 'error'); }
   }
 
-  // ── Delete category ───────────────────────────────
   async function deleteCategory(catId, name) {
     if (!confirm(`Remover a categoria "${name}" e todos os pratos dela?`)) return;
-    try {
-      await apiFetch(`/categories/${catId}`, { method: 'DELETE' });
-      showToast('Categoria removida');
-      await loadMenu();
-    } catch (e) {
-      showToast('Erro ao remover categoria', 'error');
-    }
+    try { await apiFetch(`/categories/${catId}`, { method: 'DELETE' }); showToast('Categoria removida'); await loadMenu(); }
+    catch { showToast('Erro ao remover categoria', 'error'); }
   }
 
-  // ── Restaurante ───────────────────────────────────
-  function openRestaurantModal() {
-    document.getElementById('modal-restaurant').classList.add('open');
-  }
+  function openRestaurantModal() { document.getElementById('modal-restaurant').classList.add('open'); }
 
   async function saveRestaurant() {
     const name = document.getElementById('rest-name').value.trim();
@@ -538,17 +585,12 @@
     const description = document.getElementById('rest-desc').value.trim();
     const address = document.getElementById('rest-address').value.trim();
     const whatsapp = document.getElementById('rest-whatsapp').value.trim();
-
     if (!name || !slug) { showToast('Nome e slug são obrigatórios', 'error'); return; }
-
     const btn = document.getElementById('btn-save-restaurant');
     btn.disabled = true; btn.textContent = 'Salvando...';
-
     try {
-      const res = await apiFetch('/restaurants', {
-        method: 'POST',
-        body: JSON.stringify({ name, slug, description, address, whatsapp }),
-      });
+      const res = await apiFetch('/restaurants', { method: 'POST', body: JSON.stringify({ name, slug, description, address, whatsapp }) });
+      if (!res) return;
       const data = await res.json();
       if (!res.ok) { showToast(data.detail || 'Erro ao salvar', 'error'); return; }
       currentRestaurant = data;
@@ -557,15 +599,57 @@
       document.getElementById('qr-section').style.display = 'block';
       updateRestaurantUI();
       await loadMenu();
-      showToast('Restaurante criado!');
-    } catch (e) {
-      showToast('Erro de conexão', 'error');
-    } finally {
-      btn.disabled = false; btn.textContent = 'Salvar';
-    }
+      showToast('Restaurante configurado!');
+    } catch { showToast('Erro de conexão', 'error'); }
+    finally { btn.disabled = false; btn.textContent = 'Salvar'; }
   }
 
-  // ── Categoria ─────────────────────────────────────
+  function openConfigModal() {
+    if (!currentRestaurant) { showToast('Crie um restaurante primeiro', 'error'); return; }
+    const r = currentRestaurant;
+    document.getElementById('config-name').value = r.name || '';
+    document.getElementById('config-slug').value = r.slug || '';
+    document.getElementById('config-desc').value = r.description || '';
+    document.getElementById('config-address').value = r.address || '';
+    document.getElementById('config-whatsapp').value = r.whatsapp || '';
+    uploadedLogoUrl = r.logo_url || null;
+    const preview = document.getElementById('logo-preview');
+    if (r.logo_url) { preview.src = r.logo_url; preview.classList.add('show'); document.getElementById('logo-upload-text').textContent = 'Clique para trocar o logo'; }
+    else { preview.classList.remove('show'); preview.src = ''; document.getElementById('logo-upload-text').textContent = '📷 Clique para adicionar o logo'; }
+    document.getElementById('logo-input').value = '';
+    document.getElementById('modal-config').classList.add('open');
+  }
+
+  async function saveConfig() {
+    const name = document.getElementById('config-name').value.trim();
+    const slug = document.getElementById('config-slug').value.trim();
+    const description = document.getElementById('config-desc').value.trim();
+    const address = document.getElementById('config-address').value.trim();
+    const whatsapp = document.getElementById('config-whatsapp').value.trim();
+    if (!name) { showToast('Nome é obrigatório', 'error'); return; }
+    const btn = document.getElementById('btn-save-config');
+    btn.disabled = true; btn.textContent = 'Salvando...';
+    try {
+      const logoFile = document.getElementById('logo-input').files[0];
+      if (logoFile) {
+        btn.textContent = 'Enviando logo...';
+        const url = await uploadToCloudinary(logoFile, 'logo-progress', 'logo-progress-bar');
+        if (url) uploadedLogoUrl = url;
+      }
+      const body = { name, description, address, whatsapp };
+      if (slug) body.slug = slug;
+      if (uploadedLogoUrl) body.logo_url = uploadedLogoUrl;
+      const res = await apiFetch(`/restaurants/${currentRestaurant.id}`, { method: 'PUT', body: JSON.stringify(body) });
+      if (!res || !res.ok) { showToast('Erro ao salvar', 'error'); return; }
+      const data = await res.json();
+      currentRestaurant = data;
+      updateRestaurantUI();
+      closeModal('config');
+      showToast('Configurações salvas!');
+    } catch { showToast('Erro de conexão', 'error'); }
+    finally { btn.disabled = false; btn.textContent = 'Salvar alterações'; }
+  }
+
   function openCategoryModal() {
     document.getElementById('cat-name').value = '';
     document.getElementById('cat-emoji').value = '';
@@ -576,42 +660,52 @@
     const name = document.getElementById('cat-name').value.trim();
     const emoji = document.getElementById('cat-emoji').value.trim();
     if (!name) { showToast('Informe o nome da categoria', 'error'); return; }
-
     const btn = document.getElementById('btn-save-category');
     btn.disabled = true; btn.textContent = 'Criando...';
-
     try {
-      const res = await apiFetch(`/restaurants/${currentRestaurant.id}/categories`, {
-        method: 'POST',
-        body: JSON.stringify({ name, emoji }),
-      });
-      if (!res.ok) { showToast('Erro ao criar categoria', 'error'); return; }
-      closeModal('category');
-      showToast('Categoria criada!');
-      await loadMenu();
-    } catch (e) {
-      showToast('Erro de conexão', 'error');
-    } finally {
-      btn.disabled = false; btn.textContent = 'Criar';
-    }
+      const res = await apiFetch(`/restaurants/${currentRestaurant.id}/categories`, { method: 'POST', body: JSON.stringify({ name, emoji }) });
+      if (!res || !res.ok) { showToast('Erro ao criar categoria', 'error'); return; }
+      closeModal('category'); showToast('Categoria criada!'); await loadMenu();
+    } catch { showToast('Erro de conexão', 'error'); }
+    finally { btn.disabled = false; btn.textContent = 'Criar'; }
   }
 
-  // ── Item ──────────────────────────────────────────
-    function openItemModal(categoryId = null) {
-    if (!categories.length) {
-      showToast('Crie uma categoria antes de adicionar pratos', 'error');
-      openCategoryModal();
-      return;
-    }}
+  function resetUpload() {
+    uploadedImageUrl = null;
+    document.getElementById('foto-input').value = '';
+    document.getElementById('upload-preview').classList.remove('show');
+    document.getElementById('upload-preview').src = '';
+    document.getElementById('upload-text').textContent = '📷 Clique para adicionar uma foto';
+  }
 
-  function openEditItemModal(itemId, categoryId, name, desc, price, featured) {
-    editingItemId = itemId;
-    document.getElementById('item-modal-title').textContent = 'Editar prato';
-    document.getElementById('item-name').value = name;
-    document.getElementById('item-desc').value = desc;
-    document.getElementById('item-price').value = price;
-    document.getElementById('item-featured').value = featured === 'true' ? 'true' : 'false';
+  function openItemModal(categoryId = null) {
+    if (!categories.length) { showToast('Crie uma categoria antes de adicionar pratos', 'error'); openCategoryModal(); return; }
+    editingItemId = null;
+    document.getElementById('item-modal-title').textContent = 'Novo prato';
+    document.getElementById('item-name').value = '';
+    document.getElementById('item-desc').value = '';
+    document.getElementById('item-price').value = '';
+    document.getElementById('item-featured').value = 'false';
+    resetUpload();
     populateCategorySelect(categoryId);
+    document.getElementById('modal-item').classList.add('open');
+  }
+
+  function openEditItemModal(item) {
+    editingItemId = item.id;
+    document.getElementById('item-modal-title').textContent = 'Editar prato';
+    document.getElementById('item-name').value = item.name || '';
+    document.getElementById('item-desc').value = item.description || '';
+    document.getElementById('item-price').value = item.price || '';
+    document.getElementById('item-featured').value = item.featured ? 'true' : 'false';
+    resetUpload();
+    if (item.image_url) {
+      uploadedImageUrl = item.image_url;
+      const preview = document.getElementById('upload-preview');
+      preview.src = item.image_url; preview.classList.add('show');
+      document.getElementById('upload-text').textContent = 'Foto atual — clique para trocar';
+    }
+    populateCategorySelect(item.category_id || null);
     document.getElementById('modal-item').classList.add('open');
   }
 
@@ -628,81 +722,63 @@
     const description = document.getElementById('item-desc').value.trim();
     const price = document.getElementById('item-price').value;
     const featured = document.getElementById('item-featured').value === 'true';
-
     if (!name || !price || !categoryId) { showToast('Preencha nome, preço e categoria', 'error'); return; }
-
     const btn = document.getElementById('btn-save-item');
     btn.disabled = true; btn.textContent = 'Salvando...';
-
     try {
+      const fileInput = document.getElementById('foto-input');
+      if (fileInput.files[0]) {
+        btn.textContent = 'Enviando foto...';
+        const url = await uploadToCloudinary(fileInput.files[0], 'upload-progress', 'upload-progress-bar');
+        if (url) uploadedImageUrl = url;
+      }
+      const body = { name, description, price: parseFloat(price), featured };
+      if (uploadedImageUrl) body.image_url = uploadedImageUrl;
       let res;
       if (editingItemId) {
-        res = await apiFetch(`/items/${editingItemId}`, {
-          method: 'PUT',
-          body: JSON.stringify({ name, description, price: parseFloat(price), featured }),
-        });
+        res = await apiFetch(`/items/${editingItemId}`, { method: 'PUT', body: JSON.stringify(body) });
       } else {
-        res = await apiFetch(`/categories/${categoryId}/items`, {
-          method: 'POST',
-          body: JSON.stringify({ name, description, price: parseFloat(price), featured }),
-        });
+        res = await apiFetch(`/categories/${categoryId}/items`, { method: 'POST', body: JSON.stringify(body) });
       }
-      if (!res.ok) { showToast('Erro ao salvar prato', 'error'); return; }
-      closeModal('item');
-      showToast(editingItemId ? 'Prato atualizado!' : 'Prato adicionado!');
-      await loadMenu();
-    } catch (e) {
-      showToast('Erro de conexão', 'error');
-    } finally {
-      btn.disabled = false; btn.textContent = 'Salvar prato';
-    }
+      if (!res || !res.ok) { showToast('Erro ao salvar prato', 'error'); return; }
+      closeModal('item'); showToast(editingItemId ? 'Prato atualizado!' : 'Prato adicionado!'); await loadMenu();
+    } catch { showToast('Erro de conexão', 'error'); }
+    finally { btn.disabled = false; btn.textContent = 'Salvar prato'; }
   }
 
-  // ── QR e link ─────────────────────────────────────
   function copyLink() {
-    const link = `https://seu-cardapio-production.up.railway.app/api/menu/${currentRestaurant.slug}`;
-    navigator.clipboard.writeText(`seucardapio.netlify.app/${currentRestaurant.slug}`);
+    navigator.clipboard.writeText(`${FRONTEND}/cardapio-publico.html?slug=${currentRestaurant.slug}`);
     showToast('Link copiado!');
   }
 
   async function downloadQR() {
     if (!currentRestaurant) return;
-    const res = await apiFetch(`/restaurants/${currentRestaurant.id}/qrcode`);
-    const blob = await res.blob();
-    const url = URL.createObjectURL(blob);
-    const a = document.createElement('a');
-    a.href = url; a.download = `qrcode-${currentRestaurant.slug}.png`;
-    a.click(); URL.revokeObjectURL(url);
-    showToast('QR Code baixado!');
+    try {
+      const res = await apiFetch(`/restaurants/${currentRestaurant.id}/qrcode`);
+      if (!res) return;
+      const blob = await res.blob();
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a'); a.href = url; a.download = `qrcode-${currentRestaurant.slug}.png`; a.click(); URL.revokeObjectURL(url);
+      showToast('QR Code baixado!');
+    } catch { showToast('Erro ao baixar QR', 'error'); }
   }
 
   function viewPublic() {
-    if (currentRestaurant) {
-      window.open(`cardapio-publico.html?slug=${currentRestaurant.slug}`, '_blank');
-    }
+    if (currentRestaurant) window.open(`${FRONTEND}/cardapio-publico.html?slug=${currentRestaurant.slug}`, '_blank');
   }
 
-  // ── Modais ────────────────────────────────────────
-  function closeModal(type) {
-    document.getElementById('modal-' + type).classList.remove('open');
-  }
+  function closeModal(type) { document.getElementById('modal-' + type).classList.remove('open'); }
   document.querySelectorAll('.modal-overlay').forEach(o => {
     o.addEventListener('click', e => { if (e.target === o) o.classList.remove('open'); });
   });
 
-  // ── Toast ─────────────────────────────────────────
   function showToast(msg, type = '') {
     const t = document.getElementById('toast');
-    t.textContent = msg;
-    t.className = 'toast' + (type ? ' ' + type : '') + ' show';
+    t.textContent = msg; t.className = 'toast' + (type ? ' ' + type : '') + ' show';
     setTimeout(() => t.classList.remove('show'), 3000);
   }
 
-  // ── Auth ──────────────────────────────────────────
-  function logout() {
-    localStorage.removeItem('token');
-    window.location.href = 'index.html';
-  }
+  function logout() { localStorage.removeItem('token'); window.location.href = 'index.html'; }
 
   init();
 </script>
