@@ -63,6 +63,8 @@ async def create_checkout(
         db.refresh(restaurant)
 
     try:
+        print(f"SUCCESS URL: {FRONTEND_URL}/painel-admin.html?payment=success")
+        print(f"CANCEL URL: {FRONTEND_URL}/planos.html?payment=cancelled")
         session = stripe.checkout.Session.create(
             payment_method_types=["card"],
             mode="subscription",
