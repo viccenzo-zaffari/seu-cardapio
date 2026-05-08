@@ -56,7 +56,7 @@ async def create_checkout(
             name="Meu Restaurante",
             slug=slug,
             plan="trial",
-            status="trial",
+            status="active",
         )
         db.add(restaurant)
         db.commit()
