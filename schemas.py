@@ -41,6 +41,7 @@ class RestaurantCreate(BaseModel):
 
 class RestaurantUpdate(BaseModel):
     name: Optional[str] = None
+    slug: Optional[str] = None
     description: Optional[str] = None
     address: Optional[str] = None
     whatsapp: Optional[str] = None
