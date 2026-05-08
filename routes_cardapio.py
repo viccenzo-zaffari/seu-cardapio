@@ -230,6 +230,7 @@ def create_item(
         name=data.name,
         description=data.description,
         price=data.price,
+        image_url=data.image_url,
         available=data.available,
         featured=data.featured,
         sort_order=data.sort_order,
