@@ -354,7 +354,7 @@ def generate_qr(
         raise HTTPException(status_code=404, detail="Restaurante não encontrado")
 
     base_url = os.getenv("FRONTEND_URL", "https://seucardapio.com.br")
-    url = f"{base_url}/{r.slug}"
+    url = f"{base_url}/cardapio-publico.html?slug={r.slug}"
 
     qr = qrcode.QRCode(version=1, box_size=10, border=4)
     qr.add_data(url)
