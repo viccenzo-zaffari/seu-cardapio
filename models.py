@@ -30,6 +30,7 @@ class Restaurant(Base):
     primary_color = Column(String(7), default="#D4460A")
     address = Column(String(300), nullable=True)
     whatsapp = Column(String(20), nullable=True)
+    opening_hours = Column(Text, nullable=True)
     plan = Column(String(20), default="trial")
     status = Column(String(20), default="active")
     stripe_subscription_id = Column(String(200), nullable=True)
