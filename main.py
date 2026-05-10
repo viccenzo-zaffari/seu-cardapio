@@ -9,6 +9,13 @@ import routes_stripe
 import os
 
 Base.metadata.create_all(bind=engine)
+from sqlalchemy import text
+try:
+    with engine.connect() as conn:
+        conn.execute(text("ALTER TABLE restaurants ADD COLUMN IF NOT EXISTS opening_hours TEXT"))
+        conn.commit()
+except:
+    pass
 
 app = FastAPI(title="Seu Cardapio API")
 
