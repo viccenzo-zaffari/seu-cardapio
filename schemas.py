@@ -45,8 +45,10 @@ class RestaurantUpdate(BaseModel):
     description: Optional[str] = None
     address: Optional[str] = None
     whatsapp: Optional[str] = None
+    opening_hours: Optional[str] = None
     primary_color: Optional[str] = None
     logo_url: Optional[str] = None
+    
 
 class RestaurantOut(BaseModel):
     id: uuid.UUID
@@ -57,6 +59,7 @@ class RestaurantOut(BaseModel):
     primary_color: str
     address: Optional[str]
     whatsapp: Optional[str]
+    opening_hours: Optional[str] = None
     plan: str
     status: str
     created_at: datetime
