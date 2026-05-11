@@ -150,6 +150,7 @@ class PublicMenuOut(BaseModel):
     primary_color: str
     address: Optional[str]
     whatsapp: Optional[str]
+    opening_hours: Optional[str] = None
     categories: List[PublicCategoryOut]
     class Config:
         from_attributes = True
