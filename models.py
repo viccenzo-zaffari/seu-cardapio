@@ -68,5 +68,14 @@ class MenuItem(Base):
     featured = Column(Boolean, default=False)
     sort_order = Column(Integer, default=0)
     created_at = Column(DateTime(timezone=True), server_default=func.now())
+    options = relationship("MenuItemOption", backref="item", cascade="all, delete-orphan", order_by="MenuItemOption.sort_order")
+    max_options = Column(Integer, default=1)
 
     category = relationship("Category", back_populates="items")
+
+class MenuItemOption(Base):
+    __tablename__ = "menu_item_options"
+    id = Column(String, primary_key=True, default=lambda: str(uuid.uuid4()))
+    item_id = Column(String, ForeignKey("menu_items.id", ondelete="CASCADE"))
+    name = Column(String, nullable=False)
+    sort_order = Column(Integer, default=0)
