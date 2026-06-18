@@ -5,22 +5,17 @@ from sqlalchemy.sql import func
 from database import Base
 import uuid
 
-
 class Owner(Base):
     __tablename__ = "owners"
-
     id = Column(UUID(as_uuid=True), primary_key=True, default=uuid.uuid4)
     name = Column(String(120), nullable=False)
     email = Column(String(200), unique=True, nullable=False, index=True)
     password_hash = Column(String(255), nullable=False)
     created_at = Column(DateTime(timezone=True), server_default=func.now())
-
     restaurants = relationship("Restaurant", back_populates="owner", cascade="all, delete")
-
 
 class Restaurant(Base):
     __tablename__ = "restaurants"
-
     id = Column(UUID(as_uuid=True), primary_key=True, default=uuid.uuid4)
     owner_id = Column(UUID(as_uuid=True), ForeignKey("owners.id", ondelete="CASCADE"), nullable=False)
     name = Column(String(120), nullable=False)
@@ -36,28 +31,22 @@ class Restaurant(Base):
     stripe_subscription_id = Column(String(200), nullable=True)
     trial_ends_at = Column(DateTime(timezone=True), nullable=True)
     created_at = Column(DateTime(timezone=True), server_default=func.now())
-
     owner = relationship("Owner", back_populates="restaurants")
     categories = relationship("Category", back_populates="restaurant", cascade="all, delete", order_by="Category.sort_order")
 
-
 class Category(Base):
     __tablename__ = "categories"
-
     id = Column(UUID(as_uuid=True), primary_key=True, default=uuid.uuid4)
     restaurant_id = Column(UUID(as_uuid=True), ForeignKey("restaurants.id", ondelete="CASCADE"), nullable=False)
     name = Column(String(80), nullable=False)
     emoji = Column(String(4), nullable=True)
     sort_order = Column(Integer, default=0)
     created_at = Column(DateTime(timezone=True), server_default=func.now())
-
     restaurant = relationship("Restaurant", back_populates="categories")
     items = relationship("MenuItem", back_populates="category", cascade="all, delete", order_by="MenuItem.sort_order")
 
-
 class MenuItem(Base):
     __tablename__ = "menu_items"
-
     id = Column(UUID(as_uuid=True), primary_key=True, default=uuid.uuid4)
     category_id = Column(UUID(as_uuid=True), ForeignKey("categories.id", ondelete="CASCADE"), nullable=False)
     name = Column(String(120), nullable=False)
@@ -67,15 +56,14 @@ class MenuItem(Base):
     available = Column(Boolean, default=True)
     featured = Column(Boolean, default=False)
     sort_order = Column(Integer, default=0)
-    created_at = Column(DateTime(timezone=True), server_default=func.now())
-    options = relationship("MenuItemOption", backref="item", cascade="all, delete-orphan", order_by="MenuItemOption.sort_order")
     max_options = Column(Integer, default=1)
-
+    created_at = Column(DateTime(timezone=True), server_default=func.now())
     category = relationship("Category", back_populates="items")
+    options = relationship("MenuItemOption", backref="item", cascade="all, delete-orphan", order_by="MenuItemOption.sort_order")
 
 class MenuItemOption(Base):
     __tablename__ = "menu_item_options"
-    id = Column(String, primary_key=True, default=lambda: str(uuid.uuid4()))
-    item_id = Column(String, ForeignKey("menu_items.id", ondelete="CASCADE"))
-    name = Column(String, nullable=False)
+    id = Column(UUID(as_uuid=True), primary_key=True, default=uuid.uuid4)
+    item_id = Column(UUID(as_uuid=True), ForeignKey("menu_items.id", ondelete="CASCADE"), nullable=False)
+    name = Column(String(120), nullable=False)
     sort_order = Column(Integer, default=0)
