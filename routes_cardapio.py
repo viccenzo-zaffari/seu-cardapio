@@ -371,3 +371,41 @@ def generate_qr(
         media_type="image/png",
         headers={"Content-Disposition": f"attachment; filename=qrcode-{r.slug}.png"},
     )
+
+
+# ── Opções do item ────────────────────────────────────
+
+@router.post("/items/{item_id}/options", response_model=schemas.MenuItemOptionOut)
+def create_option(
+    item_id: str,
+    data: schemas.MenuItemOptionCreate,
+    db: Session = Depends(get_db),
+    owner: models.Owner = Depends(get_current_owner),
+):
+    item = db.query(models.MenuItem).join(models.Category).join(models.Restaurant).filter(
+        models.MenuItem.id == item_id,
+        models.Restaurant.owner_id == owner.id,
+    ).first()
+    if not item:
+        raise HTTPException(status_code=404, detail="Item não encontrado")
+    option = models.MenuItemOption(item_id=item_id, name=data.name, sort_order=data.sort_order)
+    db.add(option)
+    db.commit()
+    db.refresh(option)
+    return option
+
+@router.delete("/options/{option_id}")
+def delete_option(
+    option_id: str,
+    db: Session = Depends(get_db),
+    owner: models.Owner = Depends(get_current_owner),
+):
+    option = db.query(models.MenuItemOption).join(models.MenuItem).join(models.Category).join(models.Restaurant).filter(
+        models.MenuItemOption.id == option_id,
+        models.Restaurant.owner_id == owner.id,
+    ).first()
+    if not option:
+        raise HTTPException(status_code=404, detail="Opção não encontrada")
+    db.delete(option)
+    db.commit()
+    return {"ok": True}
