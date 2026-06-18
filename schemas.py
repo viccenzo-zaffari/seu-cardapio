@@ -48,7 +48,6 @@ class RestaurantUpdate(BaseModel):
     opening_hours: Optional[str] = None
     primary_color: Optional[str] = None
     logo_url: Optional[str] = None
-    
 
 class RestaurantOut(BaseModel):
     id: uuid.UUID
@@ -88,6 +87,20 @@ class CategoryOut(BaseModel):
         from_attributes = True
 
 
+# ── MenuItemOption ────────────────────────────────────
+
+class MenuItemOptionCreate(BaseModel):
+    name: str
+    sort_order: Optional[int] = 0
+
+class MenuItemOptionOut(BaseModel):
+    id: uuid.UUID
+    name: str
+    sort_order: int
+    class Config:
+        from_attributes = True
+
+
 # ── MenuItem ──────────────────────────────────────────
 
 class MenuItemCreate(BaseModel):
@@ -98,6 +111,7 @@ class MenuItemCreate(BaseModel):
     available: Optional[bool] = True
     featured: Optional[bool] = False
     sort_order: Optional[int] = 0
+    max_options: Optional[int] = 1
 
 class MenuItemUpdate(BaseModel):
     name: Optional[str] = None
@@ -107,6 +121,7 @@ class MenuItemUpdate(BaseModel):
     available: Optional[bool] = None
     featured: Optional[bool] = None
     sort_order: Optional[int] = None
+    max_options: Optional[int] = None
 
 class MenuItemOut(BaseModel):
     id: uuid.UUID
@@ -121,6 +136,9 @@ class MenuItemOut(BaseModel):
     options: Optional[List[MenuItemOptionOut]] = []
     class Config:
         from_attributes = True
+
+
+# ── Menu público (sem auth) ───────────────────────────
 
 class PublicMenuItemOut(BaseModel):
     id: uuid.UUID
@@ -153,17 +171,5 @@ class PublicMenuOut(BaseModel):
     whatsapp: Optional[str]
     opening_hours: Optional[str] = None
     categories: List[PublicCategoryOut]
-    class Config:
-        from_attributes = True
-
-
-class MenuItemOptionCreate(BaseModel):
-    name: str
-    sort_order: Optional[int] = 0
-
-class MenuItemOptionOut(BaseModel):
-    id: uuid.UUID
-    name: str
-    sort_order: int
     class Config:
         from_attributes = True
