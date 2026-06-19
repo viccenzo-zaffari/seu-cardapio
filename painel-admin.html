@@ -88,10 +88,10 @@
   .badge-red { background: var(--red-bg); color: var(--red); }
   .modal-overlay { display: none; position: fixed; inset: 0; background: rgba(0,0,0,.35); z-index: 200; align-items: center; justify-content: center; }
   .modal-overlay.open { display: flex; }
-  .modal { background: var(--surface); border-radius: 14px; width: 480px; max-width: calc(100vw - 32px); box-shadow: 0 20px 60px rgba(0,0,0,.15); overflow: hidden; }
+  .modal { background: var(--surface); border-radius: 14px; width: 520px; max-width: calc(100vw - 32px); box-shadow: 0 20px 60px rgba(0,0,0,.15); overflow: hidden; }
   .modal-header { padding: 20px 24px 16px; border-bottom: 1px solid var(--border); display: flex; align-items: center; justify-content: space-between; }
   .modal-title { font-size: 15px; font-weight: 600; }
-  .modal-body { padding: 20px 24px; max-height: 70vh; overflow-y: auto; }
+  .modal-body { padding: 20px 24px; max-height: 72vh; overflow-y: auto; }
   .modal-footer { padding: 16px 24px; border-top: 1px solid var(--border); display: flex; justify-content: flex-end; gap: 10px; }
   .form-group { margin-bottom: 16px; }
   .form-label { display: block; font-size: 12px; font-weight: 500; color: var(--text-2); margin-bottom: 6px; }
@@ -109,6 +109,16 @@
   .upload-text { font-size: 12px; color: var(--text-3); }
   .upload-progress { height: 3px; background: var(--border); border-radius: 2px; margin-top: 8px; display: none; }
   .upload-progress-bar { height: 100%; background: var(--accent); border-radius: 2px; width: 0%; transition: width .3s; }
+  /* Opções */
+  .options-section { border-top: 1px solid var(--border); margin-top: 8px; padding-top: 16px; }
+  .options-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 10px; }
+  .options-title { font-size: 13px; font-weight: 600; }
+  .option-tag { display: inline-flex; align-items: center; gap: 6px; background: var(--surface2); border: 1px solid var(--border); border-radius: 100px; padding: 4px 10px; font-size: 12px; margin: 3px; }
+  .option-tag button { background: none; border: none; cursor: pointer; font-size: 12px; color: var(--text-3); padding: 0; line-height: 1; }
+  .option-tag button:hover { color: var(--red); }
+  .options-tags { display: flex; flex-wrap: wrap; margin-bottom: 8px; min-height: 32px; }
+  .option-input-row { display: flex; gap: 8px; }
+  .option-input-row input { flex: 1; }
   .toast { position: fixed; bottom: 24px; right: 24px; z-index: 300; background: var(--accent); color: white; padding: 10px 16px; border-radius: var(--radius-sm); font-size: 13px; font-weight: 500; box-shadow: var(--shadow-md); transform: translateY(80px); opacity: 0; transition: all .25s cubic-bezier(.34,1.56,.64,1); }
   .toast.show { transform: translateY(0); opacity: 1; }
   .toast.error { background: var(--red); }
@@ -134,6 +144,7 @@
     <button class="nav-item" onclick="viewPublic()"><span class="nav-icon">↗</span> Ver cardápio</button>
     <button class="nav-item" onclick="openConfigModal()"><span class="nav-icon">◈</span> Configurações</button>
     <button class="nav-item" onclick="window.location.href='planos.html'"><span class="nav-icon">◇</span> Plano</button>
+    <a class="nav-item" href="https://mail.google.com/mail/?view=cm&to=seucardapio.suporte@gmail.com" target="_blank" rel="noopener"><span class="nav-icon">✉</span> Suporte</a>
   </nav>
   <div class="sidebar-footer">
     <span class="plan-badge" id="plan-badge">Trial ativo</span>
@@ -205,7 +216,7 @@
   </div>
 </div>
 
-<!-- Modal: Restaurante (criar) -->
+<!-- Modal: Restaurante -->
 <div class="modal-overlay" id="modal-restaurant">
   <div class="modal">
     <div class="modal-header">
@@ -244,7 +255,7 @@
   </div>
 </div>
 
-<!-- Modal: Configurações (editar + logo + slug) -->
+<!-- Modal: Configurações -->
 <div class="modal-overlay" id="modal-config">
   <div class="modal">
     <div class="modal-header">
@@ -260,30 +271,33 @@
           <div class="upload-text" id="logo-upload-text">📷 Clique para adicionar o logo</div>
           <div class="upload-progress" id="logo-progress"><div class="upload-progress-bar" id="logo-progress-bar"></div></div>
         </div>
-        <div style="font-size:11px;color:var(--text-3);margin-top:6px">Aparece no topo do cardápio. Recomendado: imagem quadrada.</div>
       </div>
       <div class="form-group">
         <label class="form-label">Nome do restaurante *</label>
-        <input class="form-input" type="text" id="config-name" placeholder="Ex: Burger do Bairro">
+        <input class="form-input" type="text" id="config-name">
       </div>
       <div class="form-group">
         <label class="form-label">Link do cardápio (slug)</label>
-        <input class="form-input" type="text" id="config-slug" placeholder="Ex: burguerdobairro" oninput="this.value=this.value.toLowerCase().replace(/[^a-z0-9-]/g,'')">
+        <input class="form-input" type="text" id="config-slug" oninput="this.value=this.value.toLowerCase().replace(/[^a-z0-9-]/g,'')">
         <div style="font-size:11px;color:var(--text-3);margin-top:4px">Atenção: mudar o slug altera o link do QR Code.</div>
       </div>
       <div class="form-group">
         <label class="form-label">Descrição</label>
-        <textarea class="form-input" id="config-desc" placeholder="Hambúrgueres artesanais desde 2019..."></textarea>
+        <textarea class="form-input" id="config-desc"></textarea>
       </div>
       <div class="form-row">
         <div class="form-group">
           <label class="form-label">Endereço</label>
-          <input class="form-input" type="text" id="config-address" placeholder="Rua, número, bairro">
+          <input class="form-input" type="text" id="config-address">
         </div>
         <div class="form-group">
           <label class="form-label">WhatsApp</label>
-          <input class="form-input" type="text" id="config-whatsapp" placeholder="51999999999">
+          <input class="form-input" type="text" id="config-whatsapp">
         </div>
+      </div>
+      <div style="border-top:1px solid var(--border);margin:8px 0 16px;padding-top:16px">
+        <div style="font-size:13px;font-weight:600;margin-bottom:12px">Horários de funcionamento</div>
+        <div id="hours-grid" style="display:flex;flex-direction:column;gap:8px"></div>
       </div>
     </div>
     <div class="modal-footer">
@@ -340,7 +354,7 @@
       </div>
       <div class="form-group">
         <label class="form-label">Nome do prato *</label>
-        <input class="form-input" type="text" id="item-name" placeholder="Ex: Classic Smash Burger">
+        <input class="form-input" type="text" id="item-name" placeholder="Ex: Pizza Grande">
       </div>
       <div class="form-group">
         <label class="form-label">Descrição</label>
@@ -358,6 +372,24 @@
             <option value="true">Sim — mostrar em destaque</option>
           </select>
         </div>
+      </div>
+
+      <!-- Seção de opções/sabores -->
+      <div class="options-section">
+        <div class="options-header">
+          <span class="options-title">Opções / Sabores</span>
+          <div style="display:flex;align-items:center;gap:8px">
+            <label style="font-size:12px;color:var(--text-2)">Máx. escolhas:</label>
+            <input class="form-input" type="number" id="item-max-options" value="1" min="1" max="10" style="width:60px;padding:5px 8px;font-size:13px">
+          </div>
+        </div>
+        <div style="font-size:11px;color:var(--text-3);margin-bottom:10px">Quantas opções o cliente pode escolher (ex: 2 sabores para pizza média)</div>
+        <div class="options-tags" id="options-tags"></div>
+        <div class="option-input-row" id="option-input-row" style="display:none">
+          <input class="form-input" type="text" id="option-input" placeholder="Ex: Calabresa, Margherita..." onkeydown="if(event.key==='Enter'){event.preventDefault();addOption()}">
+          <button class="btn btn-outline btn-sm" onclick="addOption()">+ Adicionar</button>
+        </div>
+        <button class="btn btn-ghost btn-sm" id="btn-show-options" onclick="toggleOptionsInput()" style="margin-top:6px">+ Adicionar opções</button>
       </div>
     </div>
     <div class="modal-footer">
@@ -381,6 +413,8 @@
   let categories = [];
   let uploadedImageUrl = null;
   let uploadedLogoUrl = null;
+  let pendingOptions = []; // opções a criar após salvar o item
+  let deletedOptionIds = []; // IDs a deletar
 
   if (!token) window.location.href = 'index.html';
 
@@ -399,7 +433,6 @@
       const res = await apiFetch('/restaurants');
       if (!res) return;
       const restaurants = await res.json();
-
       if (!restaurants.length) {
         const params = new URLSearchParams(window.location.search);
         if (params.get('payment') === 'success') {
@@ -410,12 +443,7 @@
         }
         return;
       }
-
-      if (restaurants[0].status === 'suspended') {
-        window.location.href = 'planos.html';
-        return;
-      }
-
+      if (restaurants[0].status === 'suspended') { window.location.href = 'planos.html'; return; }
       currentRestaurant = restaurants[0];
       document.getElementById('setup-section').style.display = 'none';
       document.getElementById('qr-section').style.display = 'block';
@@ -433,11 +461,7 @@
     document.getElementById('stat-plan').textContent = plan;
     document.getElementById('plan-badge').textContent = plan + ' ativo';
     const logoBox = document.getElementById('qr-logo-box');
-    if (r.logo_url) {
-      logoBox.innerHTML = `<img src="${r.logo_url}" alt="${r.name}">`;
-    } else {
-      logoBox.innerHTML = '⊞';
-    }
+    logoBox.innerHTML = r.logo_url ? `<img src="${r.logo_url}" alt="${r.name}">` : '⊞';
   }
 
   async function loadMenu() {
@@ -447,10 +471,9 @@
       const catRes = await apiFetch(`/restaurants/${currentRestaurant.id}/categories`);
       if (!catRes) return;
       categories = await catRes.json();
-      const totalItems = categories.reduce((sum, c) => sum + (c.items ? c.items.length : 0), 0);
-      document.getElementById('stat-items').textContent = totalItems;
       document.getElementById('stat-cats').textContent = `${categories.length} categori${categories.length === 1 ? 'a' : 'as'}`;
       if (!categories.length) {
+        document.getElementById('stat-items').textContent = '0';
         container.innerHTML = `<div class="empty"><div class="empty-icon">🍽️</div><p style="font-weight:500;margin-bottom:6px">Nenhuma categoria ainda</p><p style="font-size:13px;color:var(--text-3)">Crie uma categoria e adicione seus pratos</p></div>`;
         return;
       }
@@ -465,6 +488,8 @@
           categories = categories.map(c => ({ ...c, items: [] }));
         }
       } catch { categories = categories.map(c => ({ ...c, items: [] })); }
+      const totalItems = categories.reduce((sum, c) => sum + (c.items ? c.items.length : 0), 0);
+      document.getElementById('stat-items').textContent = totalItems;
       renderMenu();
     } catch { container.innerHTML = '<div class="empty"><div class="empty-icon">⚠️</div><p>Erro ao carregar cardápio</p></div>'; }
   }
@@ -484,7 +509,7 @@
           </div>
         </div>
         <div>
-          ${cat.items.length ? cat.items.map(item => renderItemCard(item, cat.id)).join('') : `
+          ${cat.items.length ? cat.items.map(item => renderItemCard(item)).join('') : `
             <div style="padding:16px;text-align:center;font-size:13px;color:var(--text-3);background:var(--surface);border:1px dashed var(--border);border-radius:var(--radius)">
               Nenhum prato nesta categoria ainda
             </div>`}
@@ -496,11 +521,12 @@
   function renderItemCard(item) {
     const available = item.available;
     const thumb = item.image_url ? `<img src="${item.image_url}" alt="${item.name}">` : '🍽️';
+    const optCount = item.options && item.options.length > 0 ? `<span style="font-size:10px;color:var(--text-3);margin-left:6px">· ${item.options.length} opç${item.options.length === 1 ? 'ão' : 'ões'}</span>` : '';
     return `
       <div class="item-card" id="item-${item.id}">
         <div class="item-img">${thumb}</div>
         <div class="item-info">
-          <div class="item-name">${item.name}${item.featured ? ' ⭐' : ''}</div>
+          <div class="item-name">${item.name}${item.featured ? ' ⭐' : ''}${optCount}</div>
           <div class="item-desc">${item.description || 'Sem descrição'}</div>
         </div>
         <div class="item-price">R$${Number(item.price).toFixed(2)}</div>
@@ -516,6 +542,54 @@
       </div>`;
   }
 
+  // ── Opções ────────────────────────────────────────────
+  function toggleOptionsInput() {
+    const row = document.getElementById('option-input-row');
+    const btn = document.getElementById('btn-show-options');
+    const show = row.style.display === 'none';
+    row.style.display = show ? 'flex' : 'none';
+    btn.style.display = show ? 'none' : '';
+    if (show) document.getElementById('option-input').focus();
+  }
+
+  function renderOptionTags(options) {
+    const container = document.getElementById('options-tags');
+    container.innerHTML = options.map((opt, i) => `
+      <span class="option-tag">
+        ${opt.name}
+        <button onclick="removeOption(${i})" title="Remover">✕</button>
+      </span>
+    `).join('');
+  }
+
+  function addOption() {
+    const input = document.getElementById('option-input');
+    const name = input.value.trim();
+    if (!name) return;
+    pendingOptions.push({ name, isNew: true });
+    renderOptionTags(pendingOptions);
+    input.value = '';
+    input.focus();
+  }
+
+  function removeOption(index) {
+    const opt = pendingOptions[index];
+    if (opt.id) deletedOptionIds.push(opt.id);
+    pendingOptions.splice(index, 1);
+    renderOptionTags(pendingOptions);
+  }
+
+  function resetOptionsSection() {
+    pendingOptions = [];
+    deletedOptionIds = [];
+    renderOptionTags([]);
+    document.getElementById('option-input').value = '';
+    document.getElementById('option-input-row').style.display = 'none';
+    document.getElementById('btn-show-options').style.display = '';
+    document.getElementById('item-max-options').value = '1';
+  }
+
+  // ── Upload ────────────────────────────────────────────
   async function uploadToCloudinary(file, progressId, barId) {
     const progress = document.getElementById(progressId);
     const bar = document.getElementById(barId);
@@ -604,6 +678,54 @@
     finally { btn.disabled = false; btn.textContent = 'Salvar'; }
   }
 
+  // Horários
+  const DAYS = [
+    { key: 'seg', label: 'Segunda' }, { key: 'ter', label: 'Terça' },
+    { key: 'qua', label: 'Quarta' }, { key: 'qui', label: 'Quinta' },
+    { key: 'sex', label: 'Sexta' }, { key: 'sab', label: 'Sábado' },
+    { key: 'dom', label: 'Domingo' },
+  ];
+
+  function renderHoursGrid(hours) {
+    document.getElementById('hours-grid').innerHTML = DAYS.map(d => {
+      const h = hours[d.key] || { open: false, from: '08:00', to: '18:00' };
+      return `
+        <div style="display:flex;align-items:center;gap:10px">
+          <label style="display:flex;align-items:center;gap:6px;width:100px;cursor:pointer;font-size:13px">
+            <input type="checkbox" id="day-check-${d.key}" ${h.open ? 'checked' : ''} onchange="toggleDayRow('${d.key}')" style="width:15px;height:15px;cursor:pointer">
+            ${d.label}
+          </label>
+          <div id="day-times-${d.key}" style="display:flex;align-items:center;gap:8px;${h.open ? '' : 'opacity:.35;pointer-events:none'}">
+            <input type="time" id="day-from-${d.key}" value="${h.from || '08:00'}" class="form-input" style="width:110px;padding:6px 8px;font-size:13px">
+            <span style="font-size:12px;color:var(--text-3)">até</span>
+            <input type="time" id="day-to-${d.key}" value="${h.to || '18:00'}" class="form-input" style="width:110px;padding:6px 8px;font-size:13px">
+          </div>
+          <span id="day-closed-${d.key}" style="font-size:12px;color:var(--text-3);${h.open ? 'display:none' : ''}">Fechado</span>
+        </div>`;
+    }).join('');
+  }
+
+  function toggleDayRow(key) {
+    const checked = document.getElementById(`day-check-${key}`).checked;
+    const times = document.getElementById(`day-times-${key}`);
+    const closed = document.getElementById(`day-closed-${key}`);
+    times.style.opacity = checked ? '1' : '.35';
+    times.style.pointerEvents = checked ? '' : 'none';
+    closed.style.display = checked ? 'none' : '';
+  }
+
+  function getHoursFromGrid() {
+    const hours = {};
+    DAYS.forEach(d => {
+      hours[d.key] = {
+        open: document.getElementById(`day-check-${d.key}`).checked,
+        from: document.getElementById(`day-from-${d.key}`).value,
+        to: document.getElementById(`day-to-${d.key}`).value,
+      };
+    });
+    return hours;
+  }
+
   function openConfigModal() {
     if (!currentRestaurant) { showToast('Crie um restaurante primeiro', 'error'); return; }
     const r = currentRestaurant;
@@ -617,6 +739,9 @@
     if (r.logo_url) { preview.src = r.logo_url; preview.classList.add('show'); document.getElementById('logo-upload-text').textContent = 'Clique para trocar o logo'; }
     else { preview.classList.remove('show'); preview.src = ''; document.getElementById('logo-upload-text').textContent = '📷 Clique para adicionar o logo'; }
     document.getElementById('logo-input').value = '';
+    let hours = {};
+    try { hours = JSON.parse(r.opening_hours || '{}'); } catch {}
+    renderHoursGrid(hours);
     document.getElementById('modal-config').classList.add('open');
   }
 
@@ -636,13 +761,12 @@
         const url = await uploadToCloudinary(logoFile, 'logo-progress', 'logo-progress-bar');
         if (url) uploadedLogoUrl = url;
       }
-      const body = { name, description, address, whatsapp };
+      const body = { name, description, address, whatsapp, opening_hours: JSON.stringify(getHoursFromGrid()) };
       if (slug) body.slug = slug;
       if (uploadedLogoUrl) body.logo_url = uploadedLogoUrl;
       const res = await apiFetch(`/restaurants/${currentRestaurant.id}`, { method: 'PUT', body: JSON.stringify(body) });
       if (!res || !res.ok) { showToast('Erro ao salvar', 'error'); return; }
-      const data = await res.json();
-      currentRestaurant = data;
+      currentRestaurant = await res.json();
       updateRestaurantUI();
       closeModal('config');
       showToast('Configurações salvas!');
@@ -687,6 +811,7 @@
     document.getElementById('item-price').value = '';
     document.getElementById('item-featured').value = 'false';
     resetUpload();
+    resetOptionsSection();
     populateCategorySelect(categoryId);
     document.getElementById('modal-item').classList.add('open');
   }
@@ -705,13 +830,19 @@
       preview.src = item.image_url; preview.classList.add('show');
       document.getElementById('upload-text').textContent = 'Foto atual — clique para trocar';
     }
+    // Carrega opções existentes
+    resetOptionsSection();
+    document.getElementById('item-max-options').value = item.max_options || 1;
+    if (item.options && item.options.length > 0) {
+      pendingOptions = item.options.map(o => ({ id: o.id, name: o.name }));
+      renderOptionTags(pendingOptions);
+    }
     populateCategorySelect(item.category_id || null);
     document.getElementById('modal-item').classList.add('open');
   }
 
   function populateCategorySelect(selectedId) {
-    const sel = document.getElementById('item-category-id');
-    sel.innerHTML = categories.map(c =>
+    document.getElementById('item-category-id').innerHTML = categories.map(c =>
       `<option value="${c.id}" ${c.id === selectedId ? 'selected' : ''}>${c.emoji || ''} ${c.name}</option>`
     ).join('');
   }
@@ -722,6 +853,7 @@
     const description = document.getElementById('item-desc').value.trim();
     const price = document.getElementById('item-price').value;
     const featured = document.getElementById('item-featured').value === 'true';
+    const maxOptions = parseInt(document.getElementById('item-max-options').value) || 1;
     if (!name || !price || !categoryId) { showToast('Preencha nome, preço e categoria', 'error'); return; }
     const btn = document.getElementById('btn-save-item');
     btn.disabled = true; btn.textContent = 'Salvando...';
@@ -732,16 +864,37 @@
         const url = await uploadToCloudinary(fileInput.files[0], 'upload-progress', 'upload-progress-bar');
         if (url) uploadedImageUrl = url;
       }
-      const body = { name, description, price: parseFloat(price), featured };
+      const body = { name, description, price: parseFloat(price), featured, max_options: maxOptions };
       if (uploadedImageUrl) body.image_url = uploadedImageUrl;
-      let res;
+      let res, savedItem;
       if (editingItemId) {
         res = await apiFetch(`/items/${editingItemId}`, { method: 'PUT', body: JSON.stringify(body) });
+        if (!res || !res.ok) { showToast('Erro ao salvar prato', 'error'); return; }
+        savedItem = await res.json();
       } else {
         res = await apiFetch(`/categories/${categoryId}/items`, { method: 'POST', body: JSON.stringify(body) });
+        if (!res || !res.ok) { showToast('Erro ao salvar prato', 'error'); return; }
+        savedItem = await res.json();
       }
-      if (!res || !res.ok) { showToast('Erro ao salvar prato', 'error'); return; }
-      closeModal('item'); showToast(editingItemId ? 'Prato atualizado!' : 'Prato adicionado!'); await loadMenu();
+
+      // Deleta opções removidas
+      for (const id of deletedOptionIds) {
+        await apiFetch(`/options/${id}`, { method: 'DELETE' });
+      }
+
+      // Cria novas opções
+      for (const opt of pendingOptions) {
+        if (opt.isNew) {
+          await apiFetch(`/items/${savedItem.id}/options`, {
+            method: 'POST',
+            body: JSON.stringify({ name: opt.name, sort_order: 0 }),
+          });
+        }
+      }
+
+      closeModal('item');
+      showToast(editingItemId ? 'Prato atualizado!' : 'Prato adicionado!');
+      await loadMenu();
     } catch { showToast('Erro de conexão', 'error'); }
     finally { btn.disabled = false; btn.textContent = 'Salvar prato'; }
   }
