@@ -9,13 +9,7 @@ import routes_stripe
 import os
 
 Base.metadata.create_all(bind=engine)
-from sqlalchemy import text
-try:
-    with engine.connect() as conn:
-        conn.execute(text("ALTER TABLE menu_items ADD COLUMN IF NOT EXISTS max_options INTEGER DEFAULT 1"))
-        conn.commit()
-except:
-    pass
+
 
 app = FastAPI(title="Seu Cardapio API")
 
