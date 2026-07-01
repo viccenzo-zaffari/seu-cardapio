@@ -48,6 +48,7 @@ class RestaurantUpdate(BaseModel):
     opening_hours: Optional[str] = None
     primary_color: Optional[str] = None
     logo_url: Optional[str] = None
+    delivery_fee: Optional[float] = None
 
 class RestaurantOut(BaseModel):
     id: uuid.UUID
@@ -59,6 +60,7 @@ class RestaurantOut(BaseModel):
     address: Optional[str]
     whatsapp: Optional[str]
     opening_hours: Optional[str] = None
+    delivery_fee: Optional[float] = None
     plan: str
     status: str
     created_at: datetime
@@ -170,6 +172,7 @@ class PublicMenuOut(BaseModel):
     address: Optional[str]
     whatsapp: Optional[str]
     opening_hours: Optional[str] = None
+    delivery_fee: Optional[float] = None
     categories: List[PublicCategoryOut]
     class Config:
         from_attributes = True
