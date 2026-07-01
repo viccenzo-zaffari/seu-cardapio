@@ -32,6 +32,7 @@ class Restaurant(Base):
     trial_ends_at = Column(DateTime(timezone=True), nullable=True)
     created_at = Column(DateTime(timezone=True), server_default=func.now())
     owner = relationship("Owner", back_populates="restaurants")
+    delivery_fee = Column(Numeric(10, 2), nullable=True, default=0)
     categories = relationship("Category", back_populates="restaurant", cascade="all, delete", order_by="Category.sort_order")
 
 class Category(Base):
