@@ -10,6 +10,7 @@ import os
 
 Base.metadata.create_all(bind=engine)
 
+conn.execute(text("ALTER TABLE restaurants ADD COLUMN IF NOT EXISTS delivery_fee NUMERIC(10,2) DEFAULT 0"))
 
 app = FastAPI(title="Seu Cardapio API")
 
