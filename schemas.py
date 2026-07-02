@@ -94,11 +94,15 @@ class CategoryOut(BaseModel):
 class MenuItemOptionCreate(BaseModel):
     name: str
     sort_order: Optional[int] = 0
+    price: Optional[float] = 0
+    price_type: Optional[str] = "addition"
 
 class MenuItemOptionOut(BaseModel):
     id: uuid.UUID
     name: str
     sort_order: int
+    price: Optional[float] = 0
+    price_type: Optional[str] = "addition"
     class Config:
         from_attributes = True
 
