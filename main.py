@@ -10,7 +10,13 @@ import os
 
 Base.metadata.create_all(bind=engine)
 
-conn.execute(text("ALTER TABLE restaurants ADD COLUMN IF NOT EXISTS delivery_fee NUMERIC(10,2) DEFAULT 0"))
+from sqlalchemy import text
+try:
+    with engine.connect() as conn:
+        conn.execute(text("ALTER TABLE restaurants ADD COLUMN IF NOT EXISTS delivery_fee NUMERIC(10,2) DEFAULT 0"))
+        conn.commit()
+except:
+    pass
 
 app = FastAPI(title="Seu Cardapio API")
 
