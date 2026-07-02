@@ -68,3 +68,5 @@ class MenuItemOption(Base):
     item_id = Column(UUID(as_uuid=True), ForeignKey("menu_items.id", ondelete="CASCADE"), nullable=False)
     name = Column(String(120), nullable=False)
     sort_order = Column(Integer, default=0)
+    price = Column(Numeric(10, 2), nullable=True, default=0)
+    price_type = Column(String(20), default="addition")  # "addition" ou "replace"
