@@ -14,6 +14,8 @@ from sqlalchemy import text
 try:
     with engine.connect() as conn:
         conn.execute(text("ALTER TABLE restaurants ADD COLUMN IF NOT EXISTS delivery_fee NUMERIC(10,2) DEFAULT 0"))
+        conn.execute(text("ALTER TABLE menu_item_options ADD COLUMN IF NOT EXISTS price NUMERIC(10,2) DEFAULT 0"))
+        conn.execute(text("ALTER TABLE menu_item_options ADD COLUMN IF NOT EXISTS price_type VARCHAR(20) DEFAULT 'addition'"))
         conn.commit()
 except:
     pass
